@@ -1,0 +1,30 @@
+trigger:
+  - main
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  nodeVersion: "18.x"
+
+stages:
+  - stage: Build
+    displayName: "Build and Test"
+    jobs:
+      - job: BuildAndTest
+        displayName: "Build and Test"
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "$(nodeVersion)"
+            displayName: "Install Node.js"
+
+          - script: |
+              npm install
+              npm run build
+            displayName: "npm install and build"
+
+          - script: |
+              npm test
+            displayName: "Run Tests"
+            condition: succeededOrFailed()
