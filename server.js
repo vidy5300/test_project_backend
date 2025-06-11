@@ -3,7 +3,7 @@ const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());

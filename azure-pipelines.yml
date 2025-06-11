@@ -58,4 +58,4 @@ stages:
               appName: '$(appServiceName)'
               package: '$(System.ArtifactsDirectory)/drop'
               deploymentMethod: 'auto'
-              startupCommand: 'node server.js'
+              startupCommand: 'export NODE_ENV=production && node server.js'
