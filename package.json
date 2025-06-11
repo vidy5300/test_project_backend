@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "echo \"Build completed\"",
+    "build": "mkdir -p dist && cp server.js package.json dist/ && cd dist && npm install --production",
     "test": "echo \"No tests specified\" && exit 0",
     "lint": "echo \"No linting specified\" && exit 0"
   },

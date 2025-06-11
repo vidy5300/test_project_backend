@@ -45,3 +45,4 @@ stages:
               appName: '$(appServiceName)'
               package: '$(System.DefaultWorkingDirectory)/dist'
               deploymentMethod: 'auto'
+              startupCommand: 'node server.js'
