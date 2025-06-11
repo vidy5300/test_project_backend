@@ -5,7 +5,9 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  nodeVersion: "18.x"
+  nodeVersion: "22.x"
+  # Replace this with your actual App Service name from Azure Portal
+  appServiceName: "testpipelinebackend"
 
 stages:
   - stage: Build
@@ -28,3 +30,18 @@ stages:
               npm test
             displayName: "Run Tests"
             condition: succeededOrFailed()
+
+  - stage: Deploy
+    displayName: "Deploy to Azure"
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - job: Deploy
+        displayName: "Deploy to Azure App Service"
+        steps:
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'TestPipelineAzureServiceConnection'
+              appName: '$(appServiceName)'
+              package: '$(System.DefaultWorkingDirectory)/dist'
+              deploymentMethod: 'auto'
